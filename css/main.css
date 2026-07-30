@@ -196,8 +196,7 @@ pre {
 
 .view-as-code {
   font-family: "Fira Code", Consolas, "Courier New", monospace;
-  /* Ligatury wyłączone celowo: w dokumentacji HTML/CSS sklejały `<!--` w `<!——`
-     i `--zmienna` w `—zmienna`, czyli pokazywały kod inaczej, niż trzeba go wpisać. */
+
   font-variant-ligatures: none;
   padding: 10px !important;
 }
@@ -343,13 +342,6 @@ details ul{
   overflow: hidden;
 }
 
-/* =============================================================================
-   Warstwa dodana razem z nową strukturą index.html.
-   Celowo trzymana w jednym bloku: pełne porządkowanie arkusza (zmienne,
-   @layer, siatka, container queries) to następny etap prac.
-   ============================================================================= */
-
-/* Klasa opisywana w dokumentacji — teraz naprawdę istnieje w projekcie. */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -362,7 +354,6 @@ details ul{
   border: 0;
 }
 
-/* Widoczny focus dla klawiatury. Wcześniej nawigacja była nią niewidoczna. */
 :focus-visible {
   outline: 3px solid #7fd1ae;
   outline-offset: 2px;
@@ -392,7 +383,7 @@ details ul{
   translate: -50% 0;
 }
 
-/* --- Nagłówek strony --- */
+
 .header-main .site-title {
   color: #b4d5e0;
   text-transform: uppercase;
@@ -411,7 +402,6 @@ details ul{
   text-underline-offset: 6px;
 }
 
-/* --- Nawigacja boczna --- */
 .navigation-title {
   margin-block: 5px;
   text-align: center;
@@ -426,8 +416,7 @@ details ul{
   color: white;
 }
 
-/* Domyślny trójkącik <details> ukrywamy poprawnie i dajemy własny wskaźnik.
-   Poprzednie `::marker { display: none }` nie działa w żadnej przeglądarce. */
+
 .navigation-item summary {
   list-style: none;
   align-items: center;
@@ -454,7 +443,6 @@ details ul{
   rotate: 225deg;
 }
 
-/* --- Karta z zagadnieniem --- */
 .learn-html-block {
   scroll-margin-top: 20px;
 }
@@ -484,7 +472,6 @@ details ul{
   color: #d4f7c7;
 }
 
-/* Nazwa z literówką zostaje do czasu przepisania css-page.html. */
 .learn-html-desription,
 .learn-html-description {
   margin-block: 15px;
@@ -537,7 +524,6 @@ details ul{
   color: #a8e6cf;
 }
 
-/* Tabela wewnątrz opisu (ciemne tło karty), np. poziomy specyficzności. */
 .doc-table-wrap {
   margin-block: 1em;
   overflow-x: auto;
@@ -576,7 +562,6 @@ details ul{
   white-space: nowrap;
 }
 
-/* Podpis nad pojedynczą demonstracją w jasnym boksie podglądu. */
 .demo-caption {
   margin-block: 10px 4px;
   font-family: "Fira Code", Consolas, "Courier New", monospace;
@@ -592,14 +577,12 @@ details ul{
   font-size: 1em;
 }
 
-/* --- Blok kodu z przyciskiem kopiowania --- */
 .code-block {
   position: relative;
   border-radius: 15px;
   overflow: hidden;
 }
 
-/* Wcześniej ustawiane inline ze skryptu — teraz należy do arkusza. */
 .view-as-code {
   display: block;
   white-space: pre-wrap;
@@ -634,7 +617,6 @@ details ul{
   background-color: #2e5cb8;
 }
 
-/* --- Podglądy: zastępujemy usunięte atrybuty prezentacyjne (border, frameborder) --- */
 .learn-html-example table {
   border-collapse: collapse;
 }
@@ -661,8 +643,6 @@ details ul{
   accent-color: #2e5cb8;
 }
 
-/* Reset ustawia `body { line-height: 1 }` i zeruje marginesy, więc akapity
-   w podglądach nachodziły na siebie, gdy miały tło albo padding. */
 .learn-html-example p {
   line-height: 1.5;
   margin-block: 4px;
@@ -673,8 +653,6 @@ details ul{
   margin-top: 4px;
 }
 
-/* <fieldset> ma w przeglądarce `min-inline-size: min-content` i dlatego nie daje
-   się ścisnąć — na wąskich ekranach rozpychał całą stronę w poziomie. */
 .learn-html-example fieldset {
   min-width: 0;
 }

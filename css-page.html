@@ -2965,8 +2965,7 @@ body {
             <img src="./img/example-cat.png" alt="" width="1000" height="781" loading="lazy">
           </div>
           <style>
-            /* Wcześniej ten selektor brzmiał `.img-filters-example-box img` — klasa bez
-               sufiksu nie istnieje w znacznikach, więc filtr brightness nigdy nie działał. */
+           
             .img-filters-example-box--1 img {
               filter: brightness(0.5);
             }
@@ -3008,17 +3007,12 @@ body {
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      /*
-        Podświetlanie składni.
-        Kod w blokach <pre><code> jest zapisany encjami (&lt;, &gt;) prosto w źródle,
-        dzięki czemu nie trzeba go odkodowywać w przeglądarce — a znaczniki <style>
-        z przykładów nie są wykonywane przez przeglądarkę jako prawdziwe reguły CSS.
-      */
+    
       if (window.hljs) {
         window.hljs.highlightAll();
       }
 
-      /* Przycisk „Kopiuj” dodawany do każdego bloku kodu (progressive enhancement). */
+    
       const canCopy = Boolean(navigator.clipboard);
 
       document.querySelectorAll('.code-block').forEach((block) => {

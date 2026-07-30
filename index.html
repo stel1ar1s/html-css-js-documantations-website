@@ -2463,17 +2463,10 @@ img {
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      /*
-        Podświetlanie składni.
-        Kod w blokach <pre><code> jest zapisany encjami (&lt;, &gt;) prosto w źródle,
-        dzięki czemu nie trzeba go odkodowywać w przeglądarce — a znaczniki
-        z przykładów nie są wykonywane przez przeglądarkę jako prawdziwy HTML.
-      */
+    
       if (window.hljs) {
         window.hljs.highlightAll();
       }
-
-      /* Przycisk „Kopiuj” dodawany do każdego bloku kodu (progressive enhancement). */
       const canCopy = Boolean(navigator.clipboard);
 
       document.querySelectorAll('.code-block').forEach((block) => {
@@ -2499,7 +2492,6 @@ img {
         block.prepend(button);
       });
 
-      /* Wyróżnianie w nawigacji sekcji aktualnie widocznej na ekranie. */
       const links = new Map();
       document.querySelectorAll('.navigation-link[href^="#"]').forEach((link) => {
         links.set(link.getAttribute('href').slice(1), link);
