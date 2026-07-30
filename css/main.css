@@ -1,6 +1,6 @@
 @font-face {
   font-family: "ScienceGothic";
-  src: url("../fonts/ScienceGothic-Light.woff2") format(woff2);
+  src: url("../fonts/ScienceGothic-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: "ScienceGothic";
-  src: url("../fonts/ScienceGothic-Bold.woff2") format(woff2);
+  src: url("../fonts/ScienceGothic-Bold.woff2") format("woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -69,7 +69,7 @@ html {
 }
 body {
   box-sizing: border-box;
-  font-family: "ScienceGothic", serif;
+  font-family: "ScienceGothic", system-ui, sans-serif;
   background-color: black;
   font-size: 16px;
 }
@@ -196,7 +196,9 @@ pre {
 
 .view-as-code {
   font-family: "Fira Code", Consolas, "Courier New", monospace;
-  font-variant-ligatures: contextual;
+  /* Ligatury wyłączone celowo: w dokumentacji HTML/CSS sklejały `<!--` w `<!——`
+     i `--zmienna` w `—zmienna`, czyli pokazywały kod inaczej, niż trzeba go wpisać. */
+  font-variant-ligatures: none;
   padding: 10px !important;
 }
 
@@ -334,18 +336,390 @@ details ul{
 }
 
 .example-placeholder {
-  resize: none;
+  resize: vertical;
 }
 
 .learn-html-example--env {
   overflow: hidden;
 }
 
+/* =============================================================================
+   Warstwa dodana razem z nową strukturą index.html.
+   Celowo trzymana w jednym bloku: pełne porządkowanie arkusza (zmienne,
+   @layer, siatka, container queries) to następny etap prac.
+   ============================================================================= */
+
+/* Klasa opisywana w dokumentacji — teraz naprawdę istnieje w projekcie. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Widoczny focus dla klawiatury. Wcześniej nawigacja była nią niewidoczna. */
+:focus-visible {
+  outline: 3px solid #7fd1ae;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.learn-html-example :focus-visible {
+  outline-color: #14448a;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 100;
+  translate: -50% -150%;
+  padding: 10px 18px;
+  background-color: #7fd1ae;
+  color: #0a1429;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 10px 10px;
+  transition: translate 0.15s ease-out;
+}
+
+.skip-link:focus {
+  translate: -50% 0;
+}
+
+/* --- Nagłówek strony --- */
+.header-main .site-title {
+  color: #b4d5e0;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-underline-offset: 6px;
+}
+
+/* --- Nawigacja boczna --- */
+.navigation-title {
+  margin-block: 5px;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+  font-size: 1em;
+}
+
+.navigation-link[aria-current="true"] {
+  background-color: #2e5cb8;
+  border-radius: 10px;
+  color: white;
+}
+
+/* Domyślny trójkącik <details> ukrywamy poprawnie i dajemy własny wskaźnik.
+   Poprzednie `::marker { display: none }` nie działa w żadnej przeglądarce. */
+.navigation-item summary {
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navigation-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.navigation-item summary::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-inline-end: 12px;
+  border-right: 2px solid #d4c9e9;
+  border-bottom: 2px solid #d4c9e9;
+  rotate: 45deg;
+  transition: rotate 0.15s ease-in;
+}
+
+.navigation-item details[open] > summary::after {
+  rotate: 225deg;
+}
+
+/* --- Karta z zagadnieniem --- */
+.learn-html-block {
+  scroll-margin-top: 20px;
+}
+
+.learn-html-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 12px;
+  margin-bottom: 14px;
+  font-size: 1.25em;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.learn-html-title__tag {
+  padding: 3px 9px;
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 0.85em;
+  color: #a8e6cf;
+  background-color: rgb(0 0 0 / 0.35);
+  border-radius: 6px;
+}
+
+.learn-html-title__text {
+  font-weight: 700;
+  color: #d4f7c7;
+}
+
+/* Nazwa z literówką zostaje do czasu przepisania css-page.html. */
+.learn-html-desription,
+.learn-html-description {
+  margin-block: 15px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+
+.learn-html-description p + p {
+  margin-top: 0.9em;
+}
+
+.learn-html-description code,
+.doc-note code {
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+  color: #a8e6cf;
+  overflow-wrap: break-word;
+}
+
+.doc-list {
+  display: grid;
+  gap: 0.5em;
+  margin-block: 0.9em;
+  padding-left: 22px;
+  list-style: disc;
+}
+
+.doc-list li {
+  display: list-item;
+}
+
+.doc-list .doc-list {
+  margin-block: 0.5em;
+  list-style: circle;
+}
+
+.doc-note {
+  margin-block: 12px;
+  padding: 10px 14px;
+  border-left: 3px solid #7fd1ae;
+  border-radius: 0 8px 8px 0;
+  background-color: rgb(127 209 174 / 0.08);
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+.example {
+  font-size: 1em;
+  font-weight: 700;
+  color: #a8e6cf;
+}
+
+/* Tabela wewnątrz opisu (ciemne tło karty), np. poziomy specyficzności. */
+.doc-table-wrap {
+  margin-block: 1em;
+  overflow-x: auto;
+  border-radius: 10px;
+}
+
+.doc-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95em;
+  line-height: 1.45;
+}
+
+.doc-table caption {
+  padding-bottom: 8px;
+  text-align: left;
+  font-weight: 700;
+  color: #a8e6cf;
+}
+
+.doc-table :is(th, td) {
+  padding: 8px 12px;
+  border: 1px solid rgb(180 213 224 / 0.25);
+  text-align: left;
+  vertical-align: top;
+}
+
+.doc-table thead th {
+  background-color: rgb(0 0 0 / 0.3);
+  color: #d4f7c7;
+}
+
+.doc-table tbody th {
+  font-weight: 700;
+  color: #d4f7c7;
+  white-space: nowrap;
+}
+
+/* Podpis nad pojedynczą demonstracją w jasnym boksie podglądu. */
+.demo-caption {
+  margin-block: 10px 4px;
+  font-family: "Fira Code", Consolas, "Courier New", monospace;
+  font-size: 0.8em;
+  color: #3d4a5c;
+}
+
+.demo-caption:first-child {
+  margin-top: 0;
+}
+
+.demo-caption code {
+  font-size: 1em;
+}
+
+/* --- Blok kodu z przyciskiem kopiowania --- */
+.code-block {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* Wcześniej ustawiane inline ze skryptu — teraz należy do arkusza. */
+.view-as-code {
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  tab-size: 2;
+  line-height: 1.55;
+}
+
+.code-copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 1;
+  padding: 5px 12px;
+  font: inherit;
+  font-size: 0.8rem;
+  color: #d4f7c7;
+  background-color: rgb(15 31 61 / 0.92);
+  border: 1px solid rgb(212 247 199 / 0.25);
+  border-radius: 8px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease-in, background-color 0.15s ease-in;
+}
+
+.code-block:hover .code-copy,
+.code-copy:focus-visible {
+  opacity: 1;
+}
+
+.code-copy:hover {
+  background-color: #2e5cb8;
+}
+
+/* --- Podglądy: zastępujemy usunięte atrybuty prezentacyjne (border, frameborder) --- */
+.learn-html-example table {
+  border-collapse: collapse;
+}
+
+.learn-html-example :is(th, td) {
+  padding: 4px 8px;
+  border: 1px solid #9aa4b2;
+  text-align: left;
+}
+
+.learn-html-example caption {
+  padding-bottom: 6px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.learn-html-example iframe {
+  border: 0;
+  background-color: #f4f4f4;
+}
+
+.learn-html-example :is(input, select, textarea, button) {
+  font: inherit;
+  accent-color: #2e5cb8;
+}
+
+/* Reset ustawia `body { line-height: 1 }` i zeruje marginesy, więc akapity
+   w podglądach nachodziły na siebie, gdy miały tło albo padding. */
+.learn-html-example p {
+  line-height: 1.5;
+  margin-block: 4px;
+}
+
+.learn-html-example textarea {
+  display: block;
+  margin-top: 4px;
+}
+
+/* <fieldset> ma w przeglądarce `min-inline-size: min-content` i dlatego nie daje
+   się ścisnąć — na wąskich ekranach rozpychał całą stronę w poziomie. */
+.learn-html-example fieldset {
+  min-width: 0;
+}
+
+.learn-html-example :is(input, select, textarea) {
+  max-width: 100%;
+}
+
+.learn-html-example--input :is(label, legend) {
+  margin-top: 8px;
+}
+
+.learn-html-example--input :is(input, select, button) {
+  align-self: flex-start;
+}
+
+/* --- Stopka --- */
+.main-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding: 24px 15px 32px;
+  color: #b4d5e0;
+  line-height: 1.5;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.main-footer a {
+  color: #d4c9e9;
+}
+
 @media (max-width: 1090px) {
   .learn-html-code {
     font-size: 12px;
   }
-} 
+}
 
 @media (max-width: 675px) {
   main {
@@ -360,8 +734,18 @@ details ul{
     max-width: 100px;
   }
 
+  .header-main .site-title {
+    font-size: 15px;
+    max-width: 140px;
+  }
+
   .header-main a{
     font-size: 20px;
+  }
+
+  .main-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
   .navigation-item {
     margin-block: 5px;
